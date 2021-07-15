@@ -44,15 +44,18 @@ class CacheStack
     }
     
     /**
-     * Clearing the current cache stack
+     * Clearing cache stack
+     *
+     * @param string|array|null $keys Caching keys
      *
      * @return bool
      *
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function clearCache(): bool
+    public function clearCache($keys = null): bool
     {
-        $keys       = $this->getKeys();
+        $keys = $keys ?? $this->getKeys();
+        
         $this->keys = [];
         
         return $this->cache->forget($keys);

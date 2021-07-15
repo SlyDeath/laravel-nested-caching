@@ -60,7 +60,11 @@ class NestedCachingServiceProvider extends ServiceProvider
      */
     public function applyMiddleware($kernel)
     {
-        if (config('nested-caching.disabled') || in_array(app('env'), config('nested-caching.expelled-envs'), true)) {
+        if ( ! config('nested-caching.disabled')) {
+            return;
+        }
+        
+        if (in_array(app('env'), config('nested-caching.expelled-envs'), true)) {
             $kernel->pushMiddleware('SlyDeath\NestedCaching\FlushCacheMiddleware');
         }
     }
