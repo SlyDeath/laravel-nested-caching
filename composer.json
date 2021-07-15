@@ -1,0 +1,22 @@
+{
+  "name": "slydeath/laravel-nested-caching",
+  "description": "Nested Caching for Laravel with caches stack",
+  "license": "MIT",
+  "version": "1.0",
+  "authors": [
+    {
+      "name": "SlyDeath",
+      "email": "slyrs@yandex.ru"
+    }
+  ],
+  "require": {
+    "php": "^7.4|^8.0",
+    "laravel/framework": "^v8.0.0"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "SlyDeath\\NestedCaching\\": "src/"
+    }
+  }
+}
