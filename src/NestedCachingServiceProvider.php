@@ -5,6 +5,7 @@ namespace SlyDeath\NestedCaching;
 use Blade;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
+use SlyDeath\NestedCaching\Providers\EventServiceProvider;
 
 /**
  * Class NestedCachingServiceProvider
@@ -14,43 +15,15 @@ use Illuminate\Support\ServiceProvider;
 class NestedCachingServiceProvider extends ServiceProvider
 {
     /**
-     * Supported drivers
-     *
-     * @var array
-     */
-    protected $supported_drivers = [
-        'redis',
-        'memcached',
-    ];
-    
-    /**
      * Bootstrap any application services
      *
      * @param Kernel $kernel
-     *
-     * @throws BadDriverException
      */
     public function boot(Kernel $kernel)
     {
-        $this->checkCacheDriverSupport();
         $this->applyMiddleware($kernel);
         $this->applyBladeDirectives();
         $this->publishConfig();
-    }
-    
-    /**
-     * Checks cache driver for compatibility
-     *
-     * @throws BadDriverException
-     */
-    public function checkCacheDriverSupport()
-    {
-        if ( ! in_array(config('cache.default'), $this->supported_drivers, true)) {
-            throw new BadDriverException(
-                'Your cache driver does not supported.
-                Supported drivers: ' . implode(', ', $this->supported_drivers)
-            );
-        }
     }
     
     /**
@@ -108,6 +81,8 @@ class NestedCachingServiceProvider extends ServiceProvider
     {
         $config_path = __DIR__ . '/../config/nested-caching.php';
         $this->mergeConfigFrom($config_path, 'nested-caching');
+        
+        $this->app->register(EventServiceProvider::class);
         
         $this->app->singleton(CacheStack::class);
         $this->app->singleton(BladeDirectives::class);

@@ -2,7 +2,7 @@
   "name": "slydeath/laravel-nested-caching",
   "description": "Nested Caching for Laravel with caches stack",
   "license": "MIT",
-  "version": "1.1",
+  "version": "1.2",
   "authors": [
     {
       "name": "SlyDeath",
@@ -16,7 +16,8 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "SlyDeath\\NestedCaching\\": "src/"
+      "SlyDeath\\NestedCaching\\": "src/",
+      "SlyDeath\\NestedCaching\\Providers\\": "src/Providers"
     }
   }
 }

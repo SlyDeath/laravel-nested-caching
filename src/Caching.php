@@ -25,7 +25,7 @@ class Caching
      */
     public function __construct(Cache $cache)
     {
-        $this->cache = $cache->tags(config('nested-caching.cache-tag'));
+        $this->cache = $cache->supportsTags() ? $cache->tags(config('nested-caching.cache-tag')) : $cache;
     }
     
     /**
