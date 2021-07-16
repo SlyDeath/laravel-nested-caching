@@ -37,10 +37,10 @@ To cache any HTML chunk, you just need to pass the caching key to the `@cache` d
 
 ```html
 @cache('simple-cache')
-    <div>
-        This is an arbitrary piece of HTML that will be cached 
-        using the «simple-cache» key
-    </div>
+<div>
+    This is an arbitrary piece of HTML that will be cached
+    using the «simple-cache» key
+</div>
 @endCache
 ```
 
@@ -75,7 +75,7 @@ To cache the model for a certain time, specify the lifetime in minutes as the se
 
 ```html
 @cache($user, 1440)
-    <div>...</div>
+<div>...</div>
 @endCache
  ```
 
@@ -111,7 +111,7 @@ Usage example:
     <h2>User's cars {{ $user->name }}</h2>
     <ul>
         @foreach($user->cars as $car)
-        @include('user-car');
+            @include('user-car');
         @endforeach
     </ul>
 </section>
@@ -122,7 +122,7 @@ Usage example:
 
 ```html
 @cache($car)
-    <li>{{ $car->brand }}</li>
+<li>{{ $car->brand }}</li>
 @endCache
 ```
 
@@ -132,9 +132,9 @@ Example of caching a collection:
 
 ```html
 @cache($users)
-    @foreach ($users as $user)
-        @include('user');
-    @endforeach
+@foreach ($users as $user)
+    @include('user');
+@endforeach
 @endCache
 ```
 
@@ -144,6 +144,41 @@ Just run this code at bottom of your page:
 
 ```php
 app(SlyDeath\NestedCaching\CacheStack::class)->clearCache();
+```
+
+## Workflow with another caches
+
+### How to collect keys?
+
+Keys are automatically collected in `SlyDeath\NestedCaching\CacheWrittenListener` if `another-caching` is enabled, 
+but you must save them manually (at the end of executing app) if you want to use them elsewhere:
+
+```php
+app(\SlyDeath\NestedCaching\CacheStack::class)->getAnotherCaches();
+```
+
+### How to clear the stack of another caches?
+
+Just call`clearAnotherCaches` method:
+
+```php
+ app(\SlyDeath\NestedCaching\CacheStack::class)->clearAnotherCaches();
+```
+
+### How to save keys for different pages?
+
+You can generate dynamically the cache key (for example from the page id):
+
+```php
+app(\SlyDeath\NestedCaching\CacheStack::class)->setAnotherKey('my-cache-key-prefix:' . optional($page)->id)->getAnotherCaches();
+```
+
+### How to clear the stack of another caches with custom cache key?
+
+Just call`clearAnotherCaches` method and provide the key:
+
+```php
+ app(\SlyDeath\NestedCaching\CacheStack::class)->setAnotherKey('my-cache-key-prefix:' . optional($page)->id)->clearAnotherCaches();
 ```
 
 ## Enable PhpStorm support
