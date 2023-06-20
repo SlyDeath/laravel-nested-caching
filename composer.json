@@ -2,7 +2,7 @@
   "name": "slydeath/laravel-nested-caching",
   "description": "Nested Caching for Laravel with caches stack",
   "license": "MIT",
-  "version": "2.0",
+  "version": "3.0",
   "authors": [
     {
       "name": "SlyDeath",
@@ -11,7 +11,7 @@
   ],
   "require": {
     "php": "^7.4|^8.1",
-    "laravel/framework": "^v9.19"
+    "laravel/framework": "^10.10"
   },
   "minimum-stability": "dev",
   "autoload": {
